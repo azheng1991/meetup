@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <div id="container1">
+      <input id="code" type="text" placeholder="oAuth code" />
+      <button id="getToken">Access Token</button>
+      <p id="result"></p>
+    </div>
+    <div id="container2">
+      <input id="refreshToken" type="text" placeholder="refresh token" />
+      <button id="refreshAccessToken">Get New Access Token</button>
+      <p id="refreshAccessTokenResult"></p>
+    </div>
+    <script type="text/javascript">
+      const getTokenElement = document.getElementById("getToken");
+      const refreshAccessTokenElement = document.getElementById(
+        "refreshAccessToken"
+      );
+
+      getTokenElement.onclick = function () {
+        const codeElement = document.getElementById("code");
+        const resultElement = document.getElementById("result");
+        const codeValue = codeElement.value;
+
+        const lambdaURL =
+          "https://ng7mjmy5ed.execute-api.us-east-1.amazonaws.com/dev/api/token/" +
+          codeValue;
+
+        fetch(lambdaURL)
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (json) {
+            resultElement.innerText = JSON.stringify(json);
+          });
+      };
+
+      refreshAccessTokenElement.onclick = function () {
+        const codeElement = document.getElementById("refreshToken");
+        const resultElement = document.getElementById(
+          "refreshAccessTokenResult"
+        );
+        const codeValue = codeElement.value;
+
+        const lambdaURL =
+          "https://ng7mjmy5ed.execute-api.us-east-1.amazonaws.com/dev/api/refresh/" +
+          codeValue;
+
+        fetch(lambdaURL)
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (json) {
+            resultElement.innerText = JSON.stringify(json);
+          });
+      };
+    </script>
+  </body>
+</html>
