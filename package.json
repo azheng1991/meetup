@@ -10,7 +10,7 @@
     "axios": "^0.19.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1"
+    "react-scripts": "^3.4.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -38,6 +38,8 @@
   "devDependencies": {
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
-    "gh-pages": "^3.1.0"
+    "gh-pages": "^3.1.0",
+    "jest-cucumber": "^2.0.11",
+    "puppeteer": "^5.1.0"
   }
 }
