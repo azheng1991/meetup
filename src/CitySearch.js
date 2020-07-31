@@ -2,14 +2,11 @@ import React, { Component } from "react";
 import { getSuggestions } from "./api";
 
 class CitySearch extends Component {
-  constructor() {
-    super();
-    this.state = {
-      query: "",
-      suggestions: [],
-    };
-    // this.updateEvents = this.updateEvents.bind(this);
-  }
+  state = {
+    query: "",
+    suggestions: [],
+  };
+  // this.updateEvents = this.updateEvents.bind(this);
 
   handleInputChanged = (event) => {
     const value = event.target.value;
