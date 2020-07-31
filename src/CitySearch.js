@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import { getSuggestions } from "./api";
 
 class CitySearch extends Component {
-  constructor(props) {
-    super(props);
     this.state = {
       query: "",
       suggestions: [],
