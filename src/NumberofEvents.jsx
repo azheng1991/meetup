@@ -1,10 +1,13 @@
 import React, { Component } from "react";
+import { ErrorAlert } from "./Alert";
 
 class NumberofEvents extends Component {
   state = { numberOfEvents: 32 };
 
   handleOnChange = (event) => {
     const value = event.target.value;
+    if (value < 1) this.setState({ errorText: "Please enter a valid number" });
+    else this.setState({ errorText: "" });
     this.setState({ numberOfEvents: value });
     this.props.updateEvents(null, null, value);
   };

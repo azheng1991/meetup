@@ -10,7 +10,7 @@ function getAccessToken() {
 
     if (!code) {
       window.location.href =
-        "https://secure.meetup.com/oauth2/authorize?client_id=90busf24vd18jetlue445liqd0&response_type=code&redirect_uri=https://groverohit.github.io/meetup/";
+        "https://secure.meetup.com/oauth2/authorize?client_id=n0mb0fa9rn9eegfm3s91fs5kp5&response_type=code&redirect_uri=https://azheng1991.github.io/meetup/";
       return null;
     }
     return getOrRenewAccessToken("get", code);
@@ -31,12 +31,12 @@ async function getOrRenewAccessToken(type, key) {
   if (type === "get") {
     // Lambda endpoint to get token by code
     url =
-      "https://lrudfn2rg8.execute-api.us-east-1.amazonaws.com/dev/api/token/" +
+      "https://ng7mjmy5ed.execute-api.us-east-1.amazonaws.com/dev/api/token/" +
       key;
   } else if (type === "renew") {
     // Lambda endpoint to get token by refresh_token
     url =
-      "https://lrudfn2rg8.execute-api.us-east-1.amazonaws.com/dev/api/refreshtoken/" +
+      "https://ng7mjmy5ed.execute-api.us-east-1.amazonaws.com/dev/api/refresh/" +
       key;
   }
 
