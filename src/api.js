@@ -29,26 +29,21 @@ function getAccessToken() {
 async function getOrRenewAccessToken(type, key) {
   let url;
   if (type === "get") {
-    // Lambda endpoint to get token by code
     url =
       "https://ng7mjmy5ed.execute-api.us-east-1.amazonaws.com/dev/api/token/" +
       key;
   } else if (type === "renew") {
-    // Lambda endpoint to get token by refresh_token
     url =
       "https://ng7mjmy5ed.execute-api.us-east-1.amazonaws.com/dev/api/refresh/" +
       key;
   }
 
-  // Use Axios to make a GET request to the endpoint
   const tokenInfo = await axios.get(url);
 
-  // Save tokens to localStorage together with a timestamp
   localStorage.setItem("access_token", tokenInfo.data.access_token);
   localStorage.setItem("refresh_token", tokenInfo.data.refresh_token);
   localStorage.setItem("last_saved_time", Date.now());
 
-  // Return the access_token
   return tokenInfo.data.access_token;
 }
 
@@ -102,6 +97,12 @@ async function getEvents(lat, lon, page) {
     }
     return events2;
   }
+
+  if (!navigator.onLine) {
+    const events = localStorage.getItem("lastEvents");
+    return JSON.parse(events);
+  }
+
   const token = await getAccessToken();
 
   if (token) {
@@ -109,7 +110,7 @@ async function getEvents(lat, lon, page) {
       "https://api.meetup.com/find/upcoming_events?&sign=true&photo-host=public" +
       "&access_token=" +
       token;
-    // lat, lon is optional; if you have a lat and lon, you can add them
+
     if (lat && lon) {
       url += "&lat=" + lat + "&lon=" + lon;
     }
@@ -120,7 +121,13 @@ async function getEvents(lat, lon, page) {
       url += "&lat=" + lat + "&lon=" + lon + "&page=" + page;
     }
     const result = await axios.get(url);
-    return result.data.events;
+
+    const events = result.data.events;
+    if (events.length) {
+      localStorage.setItem("lastEvents", JSON.stringify(events));
+    }
+
+    return events;
   }
 }
 
